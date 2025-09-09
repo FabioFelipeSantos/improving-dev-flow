@@ -4,10 +4,7 @@
  * @returns { Promise<void> }
  */
 export async function seed(knex) {
-  // Deletes ALL existing entries
-  await knex('livros').del();
-  await knex('editoras').del();
-  await knex('autores').del();
+  await knex.raw('TRUNCATE TABLE livros, editoras, autores RESTART IDENTITY CASCADE');
   await knex('autores').insert([
     {
       nome: 'K. Johnson',
